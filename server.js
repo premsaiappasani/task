@@ -38,15 +38,17 @@ async function storeData(){
 }
 
 async function delData(){
-    let bin = await client.query('delete from "company" where true',(err,res)=>{
+    let bin = await client.query('delete from "company" where true',async (err,res)=>{
         if(!err){
             console.log('dELETED successfully');
+            const data = await storeData();  
+            const response = await insertData(data);
         }
     });
 }
 
 async function insertData(data){
-    let bin2 =await client.query('INSERT INTO "company" ("id","name","last","buy","sell","vol","base_unit") VALUES '+data,(err,result)=>{
+    let bin2 =await client.query('INSERT INTO "company" ("id","name","last","buy","sell","vol","base_unit") VALUES '+data,async (err,result)=>{
         if(err){
             console.log(err);
             str="";
@@ -54,6 +56,7 @@ async function insertData(data){
         }
         else{
             str="";
+            const dbdata= await getData();
             return 0;
         }
     });
@@ -78,9 +81,6 @@ async function updateData(obj){
 
 async function dbOperations(){
     const deleteData= await delData();
-    const data = await storeData();  
-    const response = await insertData(data);
-    const dbdata= await getData();
 } 
 
 app.get("/api/getTopTen/",(req,res)=>{
