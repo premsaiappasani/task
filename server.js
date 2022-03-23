@@ -16,6 +16,7 @@ const client = new Client({
 client.connect();
 
 var str="";
+let tableData={};
 
 async function storeData(){
     const response = await fetch('https://api.wazirx.com/api/v2/tickers');
@@ -58,24 +59,11 @@ async function insertData(data){
     });
 }
 
-app.get("/",async (req,res)=>{
-    const deleteData= await delData();
-    const data = await storeData();  
-    const response = await insertData(data);
-    const dbdata= await getData();
-    console.log(dbdata);
-    res.send("<h1>NICE</h1>");
-});
-
-app.listen(process.env.PORT || 3000,()=>{
-    console.log("Listening");
-});
-
 async function getData(){
     client.query('select * from "company"',(err,result)=>{
         console.log('done');
         if(!err){
-            return result.rows;
+            updateData(result.rows);
         }
         else
         {
@@ -83,3 +71,30 @@ async function getData(){
         }
     });
 }
+
+async function updateData(obj){
+    tableData=obj;
+}
+
+async function dbOperations(){
+    const deleteData= await delData();
+    const data = await storeData();  
+    const response = await insertData(data);
+    const dbdata= await getData();
+} 
+
+app.get("/api/getTopTen/",(req,res)=>{
+    dbOperations();
+    res.send(tableData);
+});
+
+app.get("/",async (req,res)=>{
+    dbOperations();
+    res.sendFile(__dirname+"/index.html");
+});
+
+
+app.listen(process.env.PORT || 3000,()=>{
+    console.log("Listening");
+});
+
