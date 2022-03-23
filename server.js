@@ -44,18 +44,26 @@ async function delData(){
     });
 }
 
-app.get("/",async (req,res)=>{
-    const deleteData= await delData();
-    const data = await storeData();  
+async function insertData(data){
     let bin2 =await client.query('INSERT INTO "company" ("id","name","last","buy","sell","vol","base_unit") VALUES '+data,(err,result)=>{
         if(err){
             console.log(err);
             str="";
+            return 1;
         }
         else{
             str="";
+            return 0;
         }
     });
+}
+
+app.get("/",async (req,res)=>{
+    const deleteData= await delData();
+    const data = await storeData();  
+    const response = await insertData(data);
+    const dbdata= await getData();
+    console.log(dbdata);
     res.send("<h1>NICE</h1>");
 });
 
@@ -63,17 +71,15 @@ app.listen(process.env.PORT || 3000,()=>{
     console.log("Listening");
 });
 
-
-// const { client } = require('pg/lib');
-
-// client.query('select * from "company"',(err,result)=>{
-//     console.log('done');
-//     if(!err){
-//         console.log(result.rows);
-//     }
-//     else
-//     {
-//         console.log(err);
-//     }
-//     client.end();
-// });
+async function getData(){
+    client.query('select * from "company"',(err,result)=>{
+        console.log('done');
+        if(!err){
+            return result.rows;
+        }
+        else
+        {
+            return err;
+        }
+    });
+}
