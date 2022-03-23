@@ -9,6 +9,7 @@
   "author": "premsaiappasani",
   "license": "ISC",
   "dependencies": {
+    "bootstrap": "5.1",
     "express": "^4.17.3",
     "node-fetch": "^3.2.3",
     "pg": "^8.7.3"
