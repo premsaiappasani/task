@@ -19,7 +19,7 @@ var str="";
 let tableData={};
 
 async function storeData(){
-    const response = await fetch('https://api.wazirx.com/api/v2/tickers');
+    const response = await fetch('https://api.wazirx.com/api/v2/tickers/');
     const body = await response.json();
     let id=0;
     for(let elm in body){

@@ -15,31 +15,77 @@
       body {
         font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
           Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+        color: white;
+        background-color: rgb(98, 108, 114);
+      }
+      .header-button {
+        background-color: rgb(88, 102, 110);
+        border-radius: 10%;
+      }
+      table {
+        border: 4px solid grey;
+        border-radius: 5%;
+      }
+
+      th {
+        border: 3px solid grey;
+        text-align: center;
+        border-radius: 5%;
+      }
+
+      tr {
+        border: 3px solid grey;
+        text-align: center;
+        border-radius: 5%;
+      }
+      td {
+        border: 2px solid grey;
+        text-align: center;
+        border-radius: 5%;
       }
     </style>
   </head>
-  <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <div class="container" style="margin: 0px">
-        <div class="row align-items-start">
-          <div class="col-12">
-            <a class="navbar-brand">HoldInfo</a>
+  <body class="">
+    <nav class="navbar navbar-expand-lg bg-dark">
+      <div class="container-fluid" style="margin: 0px">
+        <div class="row align-items-center" style="width: 100%">
+          <div class="col-6">
+            <div style="color: red"><h1>HoldInfo</h1></div>
+            <div>
+              <h6 style="font-size: 0.7em">
+                Powered By <span style="color: red">Fin</span>
+              </h6>
+            </div>
           </div>
-          <div class="col-4">
-            <div class="container-md">INR</div>
-            <div class="container-md">BTC</div>
-            <div class="container-md">buy BTC</div>
-          </div>
-          <div class="col-4">
-            <div class="container-md">time</div>
-            <div class="container-md">telegram</div>
-            <div class="container-md">mode</div>
+          <div class="col-6 container-fluid">
+            <span class="container-sm"
+              ><button
+                type="button"
+                aria-haspopup="true"
+                aria-expanded="false"
+                class="header-button dropdown-toggle brn brn-secondry"
+                style="border: 0px"
+              >
+                INR
+              </button></span
+            >
+            <span class="container-sm"
+              ><button
+                type="button"
+                aria-haspopup="true"
+                aria-expanded="false"
+                class="header-button dropdown-toggle brn brn-secondry"
+                style="border: 0px"
+              >
+                BTC
+              </button></span
+            >
           </div>
         </div>
       </div>
     </nav>
     <h1>HoldInfo</h1>
-    <table id="table"></table>
+    <table id="table" style="width: 100%"></table>
     <script>
       var tableData = {};
       var tableHead =
